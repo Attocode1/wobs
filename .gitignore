@@ -26,5 +26,5 @@ studio_log*
 data
 *.waData
 Logs
-wobs.waModel
+wobs.waSettings
 wobs.waPerm
