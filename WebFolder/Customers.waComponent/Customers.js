@@ -57,16 +57,18 @@ function constructor (id) {
 		var name = sources.customer.name;
 		console.log(name);
 		$$(getHtmlId('dialog1Text')).setValue('Really delete ' + name + ' ?');
+		WAF.widgets[getHtmlId('dialog1')].displayDialog();
 	};// @lock
 
 	button9.click = function button9_click (event)// @startlock
 	{// @endlock
-		$$('dialog1').closeDialog(); //cancel button
+		$$(getHtmlId('dialog1')).closeDialog(); //cancel button
 	};// @lock
 
 	button8.click = function button8_click (event)// @startlock
 	{// @endlock
-		$$('dialog1').closeDialog(); //ok button
+		
+		$$(getHtmlId('dialog1')).closeDialog(); //ok button
 	};// @lock
 
 	saveCustomerButton.click = function saveCustomerButton_click (event)// @startlock
@@ -77,9 +79,11 @@ function constructor (id) {
 			$$(getHtmlId("saveCustomerButton")).disable();
 			$$(getHtmlId('companyMessage')).setValue('Saved');
 		},
-		'onError': function(event){
-			console.log('error');
-		}
+		onError: function(error) {
+				var myError = error['error'][0];
+			//	$("#errorDiv1").html(myError.message);
+				$$(getHtmlId('companyMessage')).setValue('Saved');
+			}	
 		});
 	};// @lock
 
