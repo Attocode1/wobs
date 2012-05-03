@@ -20,7 +20,9 @@ function constructor (id) {
 	//add listener to the input fields
 	addListenerToInputFields(getHtmlId("tabView1"));
 	
-	
+	function enableButtons(){
+		$$(getHtmlId("saveCustomerButton")).enable();
+	}
     
     //The save button will only be enabled after a change in an input field 
     function addListenerToInputFields(childID){
@@ -30,9 +32,17 @@ function constructor (id) {
 			if (value.kind == "container"){
 				addListenerToInputFields(value.divID);
 			}
-			if ((value.kind == "textField") || (value.kind == "combobox")){
+			if (value.kind == "textField"){
 				value.addListener('change',function(){
-					$$(getHtmlId("saveCustomerButton")).enable(); });
+					enableButtons();
+					 });
+				}
+				
+			if (value.kind == "combobox"){
+				
+				value.addListener('click',function(){
+					enableButtons();
+					 });
 				}
 		})
     	}
