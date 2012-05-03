@@ -16,7 +16,8 @@ function constructor (id) {
 	var saveCustomerButton = {};	// @button
 	// @endregion// @endlock
 	$$(getHtmlId("saveCustomerButton")).disable();
-	$$(getHtmlId('message')).html('hallo');
+	$$(getHtmlId('companyMessage')).setValue('');
+	//$(getHtmlId('error')).setValue('hallo');
 	//add listener to the input fields
 	addListenerToInputFields(getHtmlId("tabView1"));
 	
@@ -54,6 +55,7 @@ function constructor (id) {
 		'onSuccess' : function(event){
 			console.log("saved");
 			$$(getHtmlId("saveCustomerButton")).disable();
+			$$(getHtmlId('companyMessage')).setValue('Saved');
 		},
 		'onError': function(event){
 			console.log('error');
