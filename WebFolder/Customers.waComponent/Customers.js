@@ -13,6 +13,7 @@ function constructor (id) {
 	this.load = function (data) {// @lock
 
 	// @region namespaceDeclaration// @startlock
+	var saveCustomerButton = {};	// @button
 	// @endregion// @endlock
 	$$(getHtmlId("saveCustomerButton")).disable();
 	
@@ -37,7 +38,21 @@ function constructor (id) {
     	}
 	// eventHandlers// @lock
 
+	saveCustomerButton.click = function saveCustomerButton_click (event)// @startlock
+	{// @endlock
+		sources.customer.save({
+		'onSuccess' : function(event){
+			console.log("saved");
+			$$(getHtmlId("saveCustomerButton")).disable();
+		},
+		'onError': function(event){
+			console.log('error');
+		}
+		});
+	};// @lock
+
 	// @region eventManager// @startlock
+	WAF.addListener(this.id + "_saveCustomerButton", "click", saveCustomerButton.click, "WAF");
 	// @endregion// @endlock
 
 	};// @lock
