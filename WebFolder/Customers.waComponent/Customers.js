@@ -16,7 +16,7 @@ function constructor (id) {
 	var saveCustomerButton = {};	// @button
 	// @endregion// @endlock
 	$$(getHtmlId("saveCustomerButton")).disable();
-	
+	$$(getHtmlId('message')).html('hallo');
 	//add listener to the input fields
 	addListenerToInputFields(getHtmlId("tabView1"));
 	
@@ -37,7 +37,7 @@ function constructor (id) {
 					enableButtons();
 					 });
 				}
-				
+			//combobox doesn't seem to respond to the change event	
 			if (value.kind == "combobox"){
 				
 				value.addListener('click',function(){
