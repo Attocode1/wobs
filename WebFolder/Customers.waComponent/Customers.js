@@ -23,7 +23,7 @@ function constructor (id) {
 	//$(getHtmlId('error')).setValue('hallo');
 	//add listener to the input fields
 	addListenerToInputFields(getHtmlId("tabView1"));
-	
+	var datasourceForRemove = '';
 	function enableButtons(){
 		$$(getHtmlId("saveCustomerButton")).enable();
 	}
@@ -57,6 +57,7 @@ function constructor (id) {
 		var name = sources.customer.name;
 		console.log(name);
 		$$(getHtmlId('dialog1Text')).setValue('Really delete ' + name + ' ?');
+		datasourceForRemove = sources.customer;
 		WAF.widgets[getHtmlId('dialog1')].displayDialog();
 	};// @lock
 
@@ -67,7 +68,8 @@ function constructor (id) {
 
 	button8.click = function button8_click (event)// @startlock
 	{// @endlock
-		
+		datasourceForRemove.removeCurrent();
+		$$(getHtmlId('companyMessage')).setValue('Customer was deleted');
 		$$(getHtmlId('dialog1')).closeDialog(); //ok button
 	};// @lock
 
