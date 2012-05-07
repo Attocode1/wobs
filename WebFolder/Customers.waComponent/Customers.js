@@ -19,8 +19,8 @@ function constructor (id) {
 	var saveCustomerButton = {};	// @button
 	// @endregion// @endlock
 	$$(getHtmlId("saveCustomerButton")).disable();
-	$$(getHtmlId('companyMessage')).setValue('');
-	//$(getHtmlId('error')).setValue('hallo');
+	$$(getHtmlId('customerMessage')).setValue('');
+	
 	//add listener to the input fields
 	addListenerToInputFields(getHtmlId("tabView1"));
 	var datasourceForRemove = '';
@@ -54,8 +54,9 @@ function constructor (id) {
 
 	customerDeleteButton.click = function customerDeleteButton_click (event)// @startlock
 	{// @endlock
+		$$(getHtmlId('customerMessage')).setValue('');
 		var name = sources.customer.name;
-		console.log(name);
+		
 		$$(getHtmlId('dialog1Text')).setValue('Really delete ' + name + ' ?');
 		datasourceForRemove = sources.customer;
 		WAF.widgets[getHtmlId('dialog1')].displayDialog();
@@ -70,23 +71,25 @@ function constructor (id) {
 	{// @endlock
 		//TODO asynchronous removal
 		datasourceForRemove.removeCurrent();
-		$$(getHtmlId('companyMessage')).setValue('Customer was deleted');
+		$$(getHtmlId('customerMessage')).setValue('Customer was deleted');
 		datasourceForRemove = '';
 		$$(getHtmlId('dialog1')).closeDialog(); //ok button
 	};// @lock
 
 	saveCustomerButton.click = function saveCustomerButton_click (event)// @startlock
 	{// @endlock
+		$$(getHtmlId('customerMessage')).setValue('');
 		sources.customer.save({
 		'onSuccess' : function(event){
-			console.log("saved");
+			
 			$$(getHtmlId("saveCustomerButton")).disable();
-			$$(getHtmlId('companyMessage')).setValue('Saved');
+			$$(getHtmlId('customerMessage')).setValue('OK Saved');
 		},
 		onError: function(error) {
 				var myError = error['error'][0];
 			//	$("#errorDiv1").html(myError.message);
-				$$(getHtmlId('companyMessage')).setValue('Saved');
+			//TODO display error in a dialog
+				$$(getHtmlId('customerMessage')).setValue('Saved');
 			}	
 		});
 	};// @lock
