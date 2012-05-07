@@ -68,8 +68,10 @@ function constructor (id) {
 
 	button8.click = function button8_click (event)// @startlock
 	{// @endlock
+		//TODO asynchronous removal
 		datasourceForRemove.removeCurrent();
 		$$(getHtmlId('companyMessage')).setValue('Customer was deleted');
+		datasourceForRemove = '';
 		$$(getHtmlId('dialog1')).closeDialog(); //ok button
 	};// @lock
 
