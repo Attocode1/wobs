@@ -79,10 +79,7 @@ function constructor (id) {
 			$$(getHtmlId('customerMessage')).setValue('Customer Saved');
 		},
 		onError: function(error) {
-				var myError = error['error'][0];
-			//	$("#errorDiv1").html(myError.message);
-			//TODO display error in a dialog
-				$$(getHtmlId('customerMessage')).setValue('Saved');
+				alert(error['error'][0]);
 			}	
 		});
 	};// @lock
