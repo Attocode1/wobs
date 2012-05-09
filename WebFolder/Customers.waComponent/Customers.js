@@ -11,7 +11,7 @@ function constructor (id) {
 	// @endregion// @endlock
 
 	this.load = function (data) {// @lock
-
+    
 	// @region namespaceDeclaration// @startlock
 	var customerDeleteButton = {};	// @button
 	var saveCustomerButton = {};	// @button
@@ -78,6 +78,7 @@ function constructor (id) {
 		'onSuccess' : function(event){
 			
 			$$(getHtmlId("saveCustomerButton")).disable();
+			WOBS.changedDatasource = sources.customer;
 			$$(getHtmlId('customerMessage')).setValue('Customer Saved');
 		},
 		onError: function(error) {
