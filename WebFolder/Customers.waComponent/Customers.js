@@ -22,8 +22,10 @@ function constructor (id) {
 	//add listener to the input fields
 	addListenerToInputFields(getHtmlId("tabView1"));
 	
-	function enableButtons(){
-		$$(getHtmlId("saveCustomerButton")).enable();
+	function enableButtons(source){
+		if (source.getClassTitle() == 'Customer'){
+			$$(getHtmlId("saveCustomerButton")).enable();
+		}
 	}
     
     //The save button will only be enabled after a change in an input field 
@@ -36,14 +38,14 @@ function constructor (id) {
 			}
 			if (value.kind == "textField"){
 				value.addListener('change',function(){
-					enableButtons();
+					enableButtons(value.source);
 					 });
 				}
 			//combobox doesn't seem to respond to the change event	
 			if (value.kind == "combobox"){
 				
 				value.addListener('click',function(){
-					enableButtons();
+					enableButtons(value.source);
 					 });
 				}
 		})
