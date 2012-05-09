@@ -57,9 +57,14 @@ function constructor (id) {
 		
 		
 		if (confirm('Really delete ' + name + ' ?' )){
-			//TODO asynchronous removal
-			sources.customer.removeCurrent();
-			$$(getHtmlId('customerMessage')).setValue('Customer was deleted');
+			sources.customer.removeCurrent({
+				'onSuccess' : function(event){
+					$$(getHtmlId('customerMessage')).setValue('Customer was deleted');
+				},
+				onError: function(error) {
+					alert(error['error'][0]);
+				}	
+			});
 		}
 		
 	};// @lock
