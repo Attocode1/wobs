@@ -14,8 +14,6 @@ function constructor (id) {
 
 	// @region namespaceDeclaration// @startlock
 	var customerDeleteButton = {};	// @button
-	var button9 = {};	// @button
-	var button8 = {};	// @button
 	var saveCustomerButton = {};	// @button
 	// @endregion// @endlock
 	$$(getHtmlId("saveCustomerButton")).disable();
@@ -23,7 +21,7 @@ function constructor (id) {
 	
 	//add listener to the input fields
 	addListenerToInputFields(getHtmlId("tabView1"));
-	var datasourceForRemove = '';
+	
 	function enableButtons(){
 		$$(getHtmlId("saveCustomerButton")).enable();
 	}
@@ -57,23 +55,13 @@ function constructor (id) {
 		$$(getHtmlId('customerMessage')).setValue('');
 		var name = sources.customer.name;
 		
-		$$(getHtmlId('dialog1Text')).setValue('Really delete ' + name + ' ?');
-		datasourceForRemove = sources.customer;
-		WAF.widgets[getHtmlId('dialog1')].displayDialog();
-	};// @lock
-
-	button9.click = function button9_click (event)// @startlock
-	{// @endlock
-		$$(getHtmlId('dialog1')).closeDialog(); //cancel button
-	};// @lock
-
-	button8.click = function button8_click (event)// @startlock
-	{// @endlock
-		//TODO asynchronous removal
-		datasourceForRemove.removeCurrent();
-		$$(getHtmlId('customerMessage')).setValue('Customer was deleted');
-		datasourceForRemove = '';
-		$$(getHtmlId('dialog1')).closeDialog(); //ok button
+		
+		if (confirm('Really delete ' + name + ' ?' )){
+			//TODO asynchronous removal
+			sources.customer.removeCurrent();
+			$$(getHtmlId('customerMessage')).setValue('Customer was deleted');
+		}
+		
 	};// @lock
 
 	saveCustomerButton.click = function saveCustomerButton_click (event)// @startlock
@@ -83,7 +71,7 @@ function constructor (id) {
 		'onSuccess' : function(event){
 			
 			$$(getHtmlId("saveCustomerButton")).disable();
-			$$(getHtmlId('customerMessage')).setValue('OK Saved');
+			$$(getHtmlId('customerMessage')).setValue('Customer Saved');
 		},
 		onError: function(error) {
 				var myError = error['error'][0];
@@ -96,8 +84,6 @@ function constructor (id) {
 
 	// @region eventManager// @startlock
 	WAF.addListener(this.id + "_customerDeleteButton", "click", customerDeleteButton.click, "WAF");
-	WAF.addListener(this.id + "_button9", "click", button9.click, "WAF");
-	WAF.addListener(this.id + "_button8", "click", button8.click, "WAF");
 	WAF.addListener(this.id + "_saveCustomerButton", "click", saveCustomerButton.click, "WAF");
 	// @endregion// @endlock
 
