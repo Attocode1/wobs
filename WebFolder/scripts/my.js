@@ -1,1 +1,1 @@
-﻿/*** @author admin*/var WOBS = {	changedDatasource : ""}
+﻿/*** @author admin*/var WOBS = {	changedDatasource : '',	dialogResponse:'',	action:''}

@@ -13,11 +13,15 @@ function constructor (id) {
 	this.load = function (data) {// @lock
     
 	// @region namespaceDeclaration// @startlock
+	var button7 = {};	// @button
+	var button6 = {};	// @button
+	var customerNextbutton = {};	// @button
 	var customerDeleteButton = {};	// @button
 	var saveCustomerButton = {};	// @button
 	// @endregion// @endlock
 	$$(getHtmlId("saveCustomerButton")).disable();
 	$$(getHtmlId('customerMessage')).setValue('');
+	WOBS.changedDatasource = null;
 	
 	//add listener to the input fields
 	addListenerToInputFields(getHtmlId("tabView1"));
@@ -25,6 +29,7 @@ function constructor (id) {
 	function enableButtons(source){
 		if (source.getClassTitle() == 'Customer'){
 			$$(getHtmlId("saveCustomerButton")).enable();
+			WOBS.changedDatasource = source;
 		}
 	}
     
@@ -49,8 +54,54 @@ function constructor (id) {
 					 });
 				}
 		})
-    	}
+    }
+
 	// eventHandlers// @lock
+	
+	function canContinue (){
+		if (WOBS.changedDatasource == null){
+			return true;
+		}
+		$$(getHtmlId('saveConfirmationText')).setValue('hugoooo');
+		$$(getHtmlId('dialog1')).displayDialog();
+		if (WOBS.dialogResponse == 'ok'){
+			return true;
+		}
+			return false;
+		
+	}
+	
+	function showConfirmationDialog (action){
+		if (WOBS.changedDatasource == null){
+			return true;
+		}
+		$$(getHtmlId('saveConfirmationText')).setValue('hugoooo');
+		WOBS.action = action;
+		$$(getHtmlId('dialog1')).displayDialog();
+		
+		
+	}
+
+	button7.click = function button7_click (event)// @startlock
+	{// @endlock
+
+		$$(getHtmlId('dialog1')).closeDialog(); //cancel button
+	};// @lock
+
+	button6.click = function button6_click (event)// @startlock
+	{// @endlock
+		$$(getHtmlId('dialog1')).closeDialog(); //ok button
+		if(WOBS.action == 'selectNext'){
+			WOBS.changedDatasource.save();
+			WOBS.changedDatasource.selectNext();
+		}
+		
+	};// @lock
+
+	customerNextbutton.click = function customerNextbutton_click (event)// @startlock
+	{// @endlock
+		showConfirmationDialog('selectNext');
+	};// @lock
 
 	customerDeleteButton.click = function customerDeleteButton_click (event)// @startlock
 	{// @endlock
@@ -78,7 +129,7 @@ function constructor (id) {
 		'onSuccess' : function(event){
 			
 			$$(getHtmlId("saveCustomerButton")).disable();
-			WOBS.changedDatasource = sources.customer;
+			
 			$$(getHtmlId('customerMessage')).setValue('Customer Saved');
 		},
 		onError: function(error) {
@@ -88,6 +139,9 @@ function constructor (id) {
 	};// @lock
 
 	// @region eventManager// @startlock
+	WAF.addListener(this.id + "_button7", "click", button7.click, "WAF");
+	WAF.addListener(this.id + "_button6", "click", button6.click, "WAF");
+	WAF.addListener(this.id + "_customerNextbutton", "click", customerNextbutton.click, "WAF");
 	WAF.addListener(this.id + "_customerDeleteButton", "click", customerDeleteButton.click, "WAF");
 	WAF.addListener(this.id + "_saveCustomerButton", "click", saveCustomerButton.click, "WAF");
 	// @endregion// @endlock
