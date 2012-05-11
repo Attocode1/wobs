@@ -13,6 +13,7 @@ function constructor (id) {
 	this.load = function (data) {// @lock
     
 	// @region namespaceDeclaration// @startlock
+	var button8 = {};	// @button
 	var button7 = {};	// @button
 	var button6 = {};	// @button
 	var customerNextbutton = {};	// @button
@@ -58,41 +59,59 @@ function constructor (id) {
 
 	// eventHandlers// @lock
 	
-	function canContinue (){
-		if (WOBS.changedDatasource == null){
-			return true;
+	//don't save 
+	button8.click = function button8_click (event)// @startlock
+	{// @endlock
+		$$(getHtmlId('dialog1')).closeDialog(); 
+		if(WOBS.action == 'selectNext'){
+			WOBS.changedDatasource.selectNext();
+			if(changedDatasource.getClassTitle() == 'Customer'){
+				$$(getHtmlId("saveCustomerButton")).disable();
+			}
+			WOBS.changedDatasource = null;
 		}
-		$$(getHtmlId('saveConfirmationText')).setValue('hugoooo');
-		$$(getHtmlId('dialog1')).displayDialog();
-		if (WOBS.dialogResponse == 'ok'){
-			return true;
-		}
-			return false;
-		
-	}
+	};// @lock
+	
+	
 	
 	function showConfirmationDialog (action){
 		if (WOBS.changedDatasource == null){
 			return true;
 		}
-		$$(getHtmlId('saveConfirmationText')).setValue('hugoooo');
+		$$(getHtmlId('saveConfirmationText')).setValue('Save changes ?');
 		WOBS.action = action;
 		$$(getHtmlId('dialog1')).displayDialog();
 		
 		
 	}
 
+	//cancel button
 	button7.click = function button7_click (event)// @startlock
 	{// @endlock
 
-		$$(getHtmlId('dialog1')).closeDialog(); //cancel button
+		$$(getHtmlId('dialog1')).closeDialog(); 
+		
 	};// @lock
 
+	//ok button
 	button6.click = function button6_click (event)// @startlock
 	{// @endlock
-		$$(getHtmlId('dialog1')).closeDialog(); //ok button
+		$$(getHtmlId('dialog1')).closeDialog(); 
+		
+		WOBS.changedDatasource.save({
+			'onSuccess' : function(event){
+				if(WOBS.changedDatasource.getClassTitle() == 'Customer'){
+					$$(getHtmlId("saveCustomerButton")).disable();
+					$$(getHtmlId('customerMessage')).setValue('Customer Saved');
+				}
+				WOBS.changedDatasource = null;
+			},
+			onError: function(error) {
+				alert(error['error'][0]);
+			}	
+		})
+		
 		if(WOBS.action == 'selectNext'){
-			WOBS.changedDatasource.save();
 			WOBS.changedDatasource.selectNext();
 		}
 		
@@ -139,6 +158,7 @@ function constructor (id) {
 	};// @lock
 
 	// @region eventManager// @startlock
+	WAF.addListener(this.id + "_button8", "click", button8.click, "WAF");
 	WAF.addListener(this.id + "_button7", "click", button7.click, "WAF");
 	WAF.addListener(this.id + "_button6", "click", button6.click, "WAF");
 	WAF.addListener(this.id + "_customerNextbutton", "click", customerNextbutton.click, "WAF");
