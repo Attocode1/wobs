@@ -9,27 +9,27 @@ function constructor (id) {
 	var $comp = this;
 	this.name = 'Customers';
 	// @endregion// @endlock
-
+	this.name = 'Contacts';
 	this.load = function (data) {// @lock
     
 	// @region namespaceDeclaration// @startlock
 	var button8 = {};	// @button
 	var button7 = {};	// @button
 	var button6 = {};	// @button
-	var customerNextbutton = {};	// @button
-	var customerDeleteButton = {};	// @button
-	var saveCustomerButton = {};	// @button
+	var nextContactbutton = {};	// @button
+	var deleteContactButton = {};	// @button
+	var saveContactButton = {};	// @button
 	// @endregion// @endlock
-	$$(getHtmlId("saveCustomerButton")).disable();
-	$$(getHtmlId('customerMessage')).setValue('');
+	$$(getHtmlId("saveContactButton")).disable();
+	$$(getHtmlId('contactMessage')).setValue('');
 	WOBS.changedDatasource = null;
 	
 	//add listener to the input fields
 	addListenerToInputFields(getHtmlId("tabView1"));
 	
 	function enableButtons(source){
-		if (source.getClassTitle() == 'Customer'){
-			$$(getHtmlId("saveCustomerButton")).enable();
+		if (source.getClassTitle() == 'Contact'){
+			$$(getHtmlId("saveContactButton")).enable();
 			WOBS.changedDatasource = source;
 		}
 	}
@@ -65,8 +65,8 @@ function constructor (id) {
 		$$(getHtmlId('dialog1')).closeDialog(); 
 		if(WOBS.action == 'selectNext'){
 			WOBS.changedDatasource.selectNext();
-			if(changedDatasource.getClassTitle() == 'Customer'){
-				$$(getHtmlId("saveCustomerButton")).disable();
+			if(changedDatasource.getClassTitle() == 'Contact'){
+				$$(getHtmlId("saveContactButton")).disable();
 			}
 			WOBS.changedDatasource = null;
 		}
@@ -100,9 +100,9 @@ function constructor (id) {
 		
 		WOBS.changedDatasource.save({
 			'onSuccess' : function(event){
-				if(WOBS.changedDatasource.getClassTitle() == 'Customer'){
-					$$(getHtmlId("saveCustomerButton")).disable();
-					$$(getHtmlId('customerMessage')).setValue('Customer Saved');
+				if(WOBS.changedDatasource.getClassTitle() == 'Contact'){
+					$$(getHtmlId("saveContactButton")).disable();
+					$$(getHtmlId('contactMessage')).setValue('Contact Saved');
 				}
 				WOBS.changedDatasource = null;
 			},
@@ -117,21 +117,21 @@ function constructor (id) {
 		
 	};// @lock
 
-	customerNextbutton.click = function customerNextbutton_click (event)// @startlock
+	nextContactbutton.click = function nextContactbutton_click (event)// @startlock
 	{// @endlock
 		showConfirmationDialog('selectNext');
 	};// @lock
 
-	customerDeleteButton.click = function customerDeleteButton_click (event)// @startlock
+	deleteContactButton.click = function deleteContactButton_click (event)// @startlock
 	{// @endlock
-		$$(getHtmlId('customerMessage')).setValue('');
-		var name = sources.customer.name;
+		$$(getHtmlId('contactMessage')).setValue('');
+		var name = sources.contact.name;
 		
 		
 		if (confirm('Really delete ' + name + ' ?' )){
-			sources.customer.removeCurrent({
+			sources.Contact.removeCurrent({
 				'onSuccess' : function(event){
-					$$(getHtmlId('customerMessage')).setValue('Customer was deleted');
+					$$(getHtmlId('contactMessage')).setValue('Contact was deleted');
 				},
 				onError: function(error) {
 					alert(error['error'][0]);
@@ -141,15 +141,15 @@ function constructor (id) {
 		
 	};// @lock
 
-	saveCustomerButton.click = function saveCustomerButton_click (event)// @startlock
+	saveContactButton.click = function saveContactButton_click (event)// @startlock
 	{// @endlock
-		$$(getHtmlId('customerMessage')).setValue('');
-		sources.customer.save({
+		$$(getHtmlId('contactMessage')).setValue('');
+		sources.contact.save({
 		'onSuccess' : function(event){
 			
-			$$(getHtmlId("saveCustomerButton")).disable();
+			$$(getHtmlId("saveContactButton")).disable();
 			
-			$$(getHtmlId('customerMessage')).setValue('Customer Saved');
+			$$(getHtmlId('contactMessage')).setValue('Contact Saved');
 		},
 		onError: function(error) {
 				alert(error['error'][0]);
@@ -161,9 +161,9 @@ function constructor (id) {
 	WAF.addListener(this.id + "_button8", "click", button8.click, "WAF");
 	WAF.addListener(this.id + "_button7", "click", button7.click, "WAF");
 	WAF.addListener(this.id + "_button6", "click", button6.click, "WAF");
-	WAF.addListener(this.id + "_customerNextbutton", "click", customerNextbutton.click, "WAF");
-	WAF.addListener(this.id + "_customerDeleteButton", "click", customerDeleteButton.click, "WAF");
-	WAF.addListener(this.id + "_saveCustomerButton", "click", saveCustomerButton.click, "WAF");
+	WAF.addListener(this.id + "_nextContactbutton", "click", nextContactbutton.click, "WAF");
+	WAF.addListener(this.id + "_deleteContactButton", "click", deleteContactButton.click, "WAF");
+	WAF.addListener(this.id + "_saveContactButton", "click", saveContactButton.click, "WAF");
 	// @endregion// @endlock
 
 	};// @lock
