@@ -75,9 +75,7 @@ function constructor (id) {
 	
 	
 	function showConfirmationDialog (action){
-		if (WOBS.changedDatasource == null){
-			return true;
-		}
+		
 		$$(getHtmlId('saveConfirmationText')).setValue('Save changes ?');
 		WOBS.action = action;
 		$$(getHtmlId('dialog1')).displayDialog();
@@ -119,7 +117,12 @@ function constructor (id) {
 
 	nextContactbutton.click = function nextContactbutton_click (event)// @startlock
 	{// @endlock
+		$$(getHtmlId('contactMessage')).setValue('');
+		if (WOBS.changedDatasource == null){
+			sources.contact.selectNext();
+		}else {
 		showConfirmationDialog('selectNext');
+		}
 	};// @lock
 
 	deleteContactButton.click = function deleteContactButton_click (event)// @startlock
@@ -146,7 +149,7 @@ function constructor (id) {
 		$$(getHtmlId('contactMessage')).setValue('');
 		sources.contact.save({
 		'onSuccess' : function(event){
-			
+			WOBS.changedDatasource = null;
 			$$(getHtmlId("saveContactButton")).disable();
 			
 			$$(getHtmlId('contactMessage')).setValue('Contact Saved');
