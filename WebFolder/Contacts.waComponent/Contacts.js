@@ -13,6 +13,7 @@ function constructor (id) {
 	this.load = function (data) {// @lock
     
 	// @region namespaceDeclaration// @startlock
+	var searchContactTextfield = {};	// @textField
 	var button8 = {};	// @button
 	var button7 = {};	// @button
 	var button6 = {};	// @button
@@ -58,6 +59,24 @@ function constructor (id) {
     }
 
 	// eventHandlers// @lock
+
+	searchContactTextfield.keyup = function searchContactTextfield_keyup (event)// @startlock
+	{// @endlock
+		
+		var theName = $$(getHtmlId('searchContactTextfield')).getValue();;
+		
+		sources.contact.query('name = :1',	{
+			
+			onSuccess : function(event){},
+			onError: function(error) {
+				alert(error['error'][0]);
+			},
+			params: [theName + WAF.wildchar]
+			,orderBy: 'name'	
+		});
+
+
+	};// @lock
 	
 	//don't save 
 	button8.click = function button8_click (event)// @startlock
@@ -107,7 +126,7 @@ function constructor (id) {
 			onError: function(error) {
 				alert(error['error'][0]);
 			}	
-		})
+		});
 		
 		if(WOBS.action == 'selectNext'){
 			WOBS.changedDatasource.selectNext();
@@ -161,6 +180,7 @@ function constructor (id) {
 	};// @lock
 
 	// @region eventManager// @startlock
+	WAF.addListener(this.id + "_searchContactTextfield", "keyup", searchContactTextfield.keyup, "WAF");
 	WAF.addListener(this.id + "_button8", "click", button8.click, "WAF");
 	WAF.addListener(this.id + "_button7", "click", button7.click, "WAF");
 	WAF.addListener(this.id + "_button6", "click", button6.click, "WAF");
