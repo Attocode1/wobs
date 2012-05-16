@@ -13,6 +13,7 @@ function constructor (id) {
 	this.load = function (data) {// @lock
     
 	// @region namespaceDeclaration// @startlock
+	var contactSalutationCombobox = {};	// @combobox
 	var searchContactTextfield = {};	// @textField
 	var button8 = {};	// @button
 	var button7 = {};	// @button
@@ -34,31 +35,42 @@ function constructor (id) {
 			WOBS.changedDatasource = source;
 		}
 	}
+	
+	function enableSaveContactButton(){
+		$$(getHtmlId("saveContactButton")).enable();
+		WOBS.changedDatasource = source;
+	}
     
     //The save button will only be enabled after a change in an input field 
     function addListenerToInputFields(childID){
-    	
+    	console.log("start");
 		var a = $$(childID).getChildren();
 		a.forEach(function (value){
 			if (value.kind == "container"){
 				addListenerToInputFields(value.divID);
 			}
+		//	console.log(value.kind + ' ' + value.id + ' ' + value.source);
 			if (value.kind == "textField"){
 				value.addListener('change',function(){
 					enableButtons(value.source);
 					 });
 				}
-			//combobox doesn't seem to respond to the change event	
-			if (value.kind == "combobox"){
-				
-				value.addListener('click',function(){
-					enableButtons(value.source);
-					 });
-				}
+			//combobox doesn't seem to respond to the change event	and has no source attribute
+			//if( (value.kind == "combobox") || (value.kind == "checkbox")){
+//			if (value.kind == "combobox"){	
+//				value.addListener('click',function(){
+//					enableButtons(value.source);
+//					 });
+//				}
 		})
     }
 
 	// eventHandlers// @lock
+
+	contactSalutationCombobox.click = function contactSalutationCombobox_click (event)// @startlock
+	{// @endlock
+		enableSaveContactButton();
+	};// @lock
 
 	searchContactTextfield.keyup = function searchContactTextfield_keyup (event)// @startlock
 	{// @endlock
@@ -180,6 +192,7 @@ function constructor (id) {
 	};// @lock
 
 	// @region eventManager// @startlock
+	WAF.addListener(this.id + "_contactSalutationCombobox", "click", contactSalutationCombobox.click, "WAF");
 	WAF.addListener(this.id + "_searchContactTextfield", "keyup", searchContactTextfield.keyup, "WAF");
 	WAF.addListener(this.id + "_button8", "click", button8.click, "WAF");
 	WAF.addListener(this.id + "_button7", "click", button7.click, "WAF");
