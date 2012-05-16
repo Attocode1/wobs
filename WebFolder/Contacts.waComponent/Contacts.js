@@ -14,6 +14,7 @@ function constructor (id) {
 	this.load = function (data) {// @lock
     
 	// @region namespaceDeclaration// @startlock
+	var contactIsCompanyCheckbox = {};	// @checkbox
 	var contactSalutationCombobox = {};	// @combobox
 	var searchContactTextfield = {};	// @textField
 	var button8 = {};	// @button
@@ -69,6 +70,18 @@ function constructor (id) {
     }
 
 	// eventHandlers// @lock
+
+	contactIsCompanyCheckbox.click = function contactIsCompanyCheckbox_click (event)// @startlock
+	{// @endlock
+		var isCompany = $$(getHtmlId('contactIsCompanyCheckbox')).getValue();
+		var container = getHtmlId('noCompanyContainer');
+		if(isCompany){
+			$$(container).hide();
+		}else{
+			$$(container).show();
+		}
+		//console.log('value: ' + val);
+	};// @lock
 
 	contactSalutationCombobox.click = function contactSalutationCombobox_click (event)// @startlock
 	{// @endlock
@@ -195,6 +208,7 @@ function constructor (id) {
 	};// @lock
 
 	// @region eventManager// @startlock
+	WAF.addListener(this.id + "_contactIsCompanyCheckbox", "click", contactIsCompanyCheckbox.click, "WAF");
 	WAF.addListener(this.id + "_contactSalutationCombobox", "click", contactSalutationCombobox.click, "WAF");
 	WAF.addListener(this.id + "_searchContactTextfield", "keyup", searchContactTextfield.keyup, "WAF");
 	WAF.addListener(this.id + "_button8", "click", button8.click, "WAF");
