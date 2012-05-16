@@ -1,6 +1,7 @@
 
 (function Component (id) {// @lock
-
+//TODO
+//change the length of the combobox when v2 is finished
 // Add the code that needs to be shared between components here
 
 function constructor (id) {
@@ -43,14 +44,13 @@ function constructor (id) {
     
     //The save button will only be enabled after a change in an input field 
     function addListenerToInputFields(childID){
-    	console.log("start");
-		var a = $$(childID).getChildren();
+    	var a = $$(childID).getChildren();
 		a.forEach(function (value){
-			if (value.kind == "container"){
+			if (value.kind == "container") {
 				addListenerToInputFields(value.divID);
 			}
 		//	console.log(value.kind + ' ' + value.id + ' ' + value.source);
-			if (value.kind == "textField"){
+			if ((value.kind == "textField")|| (value.kind == "checkbox")){
 				value.addListener('change',function(){
 					enableButtons(value.source);
 					 });
@@ -62,6 +62,9 @@ function constructor (id) {
 //					enableButtons(value.source);
 //					 });
 //				}
+
+			
+			
 		})
     }
 
