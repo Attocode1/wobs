@@ -28,58 +28,30 @@ function constructor (id) {
 	$$(getHtmlId('contactMessage')).setValue('');
 	WOBS.changedDatasource = null;
 	
-	//add listener to the input fields
-	addListenerToInputFields(getHtmlId("tabView1"));
-	
-	function enableButtons(source){
-		if (source.getClassTitle() == 'Contact'){
-			$$(getHtmlId("saveContactButton")).enable();
-			WOBS.changedDatasource = source;
-		}
-	}
+	$(getHtmlObj('container3')).bind({
+  		click: function(event) { console.log('click'); },
+  		change: function(event) { enableSaveContactButton(); },
+ 		 mouseleave: function(event) { /* handle mouseleaves */ }
+	});
 	
 	function enableSaveContactButton(){
 		$$(getHtmlId("saveContactButton")).enable();
-		WOBS.changedDatasource = source;
+		WOBS.changedDatasource = sources.contact;
 	}
     
-    //The save button will only be enabled after a change in an input field 
-    function addListenerToInputFields(childID){
-    	var a = $$(childID).getChildren();
-		a.forEach(function (value){
-			if (value.kind == "container") {
-				addListenerToInputFields(value.divID);
-			}
-		//	console.log(value.kind + ' ' + value.id + ' ' + value.source);
-			if ((value.kind == "textField")|| (value.kind == "checkbox")){
-				value.addListener('change',function(){
-					enableButtons(value.source);
-					 });
-				}
-			//combobox doesn't seem to respond to the change event	and has no source attribute
-			//if( (value.kind == "combobox") || (value.kind == "checkbox")){
-//			if (value.kind == "combobox"){	
-//				value.addListener('click',function(){
-//					enableButtons(value.source);
-//					 });
-//				}
 
-			
-			
-		})
-    }
 
 	// eventHandlers// @lock
 
 	contactIsCompanyCheckbox.click = function contactIsCompanyCheckbox_click (event)// @startlock
 	{// @endlock
-		var isCompany = $$(getHtmlId('contactIsCompanyCheckbox')).getValue();
-		var container = getHtmlId('noCompanyContainer');
-		if(isCompany){
-			$$(container).hide();
-		}else{
-			$$(container).show();
-		}
+//		var isCompany = $$(getHtmlId('contactIsCompanyCheckbox')).getValue();
+//		var container = getHtmlId('noCompanyContainer');
+//		if(isCompany){
+//			$$(container).hide();
+//		}else{
+//			$$(container).show();
+//		}
 		//console.log('value: ' + val);
 	};// @lock
 
