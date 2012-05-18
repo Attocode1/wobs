@@ -29,9 +29,7 @@ function constructor (id) {
 	WOBS.changedDatasource = null;
 	
 	$(getHtmlObj('container3')).bind({
-  		click: function(event) { console.log('click'); },
-  		change: function(event) { enableSaveContactButton(); },
- 		 mouseleave: function(event) { /* handle mouseleaves */ }
+  	  		change: function(event) { enableSaveContactButton(); }
 	});
 	
 	function enableSaveContactButton(){
