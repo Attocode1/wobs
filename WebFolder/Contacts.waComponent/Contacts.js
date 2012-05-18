@@ -151,7 +151,7 @@ function constructor (id) {
 		
 		
 		if (confirm('Really delete ' + name + ' ?' )){
-			sources.Contact.removeCurrent({
+			sources.contact.removeCurrent({
 				'onSuccess' : function(event){
 					$$(getHtmlId('contactMessage')).setValue('Contact was deleted');
 				},
