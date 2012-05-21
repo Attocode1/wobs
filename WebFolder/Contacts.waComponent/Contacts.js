@@ -82,7 +82,7 @@ function constructor (id) {
 		$$(getHtmlId('dialog1')).closeDialog(); 
 		if(WOBS.action == 'selectNext'){
 			WOBS.changedDatasource.selectNext();
-			if(changedDatasource.getClassTitle() == 'Contact'){
+			if(WOBS.changedDatasource.getClassTitle() == 'Contact'){
 				$$(getHtmlId("saveContactButton")).disable();
 			}
 			WOBS.changedDatasource = null;
@@ -93,7 +93,7 @@ function constructor (id) {
 	
 	function showConfirmationDialog (action){
 		
-		$$(getHtmlId('saveConfirmationText')).setValue('Save changes ?');
+		//$$(getHtmlId('saveConfirmationText')).setValue('Save changes ?');
 		WOBS.action = action;
 		$$(getHtmlId('dialog1')).displayDialog();
 		
