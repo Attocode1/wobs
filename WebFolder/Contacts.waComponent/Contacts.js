@@ -1,6 +1,8 @@
 
 (function Component (id) {// @lock
 //TODO
+//make WOBS.changedDatasource an array
+
 //change the length of the combobox when v2 is finished
 // Add the code that needs to be shared between components here
 
@@ -152,6 +154,7 @@ function constructor (id) {
 			sources.contact.removeCurrent({
 				'onSuccess' : function(event){
 					$$(getHtmlId('contactMessage')).setValue('Contact was deleted');
+					WOBS.changedDatasource = null;
 				},
 				onError: function(error) {
 					alert(error['error'][0]);
