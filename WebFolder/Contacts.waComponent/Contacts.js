@@ -30,6 +30,7 @@ function constructor (id) {
 	$$(getHtmlId('contactMessage')).setValue('');
 	WOBS.changedDatasource = null;
 	
+	
 	$(getHtmlObj('container3')).bind({
   	  		change: function(event) { enableSaveContactButton(); }
 	});
@@ -45,14 +46,14 @@ function constructor (id) {
 
 	contactIsCompanyCheckbox.click = function contactIsCompanyCheckbox_click (event)// @startlock
 	{// @endlock
-//		var isCompany = $$(getHtmlId('contactIsCompanyCheckbox')).getValue();
-//		var container = getHtmlId('noCompanyContainer');
-//		if(isCompany){
-//			$$(container).hide();
-//		}else{
-//			$$(container).show();
-//		}
-		//console.log('value: ' + val);
+		var isCompany = $$(getHtmlId('contactIsCompanyCheckbox')).getValue();
+		var container = getHtmlId('noCompanyContainer');
+		if(isCompany){
+			$$(container).hide();
+		}else{
+			$$(container).show();
+		}
+		
 	};// @lock
 
 	contactSalutationCombobox.click = function contactSalutationCombobox_click (event)// @startlock
