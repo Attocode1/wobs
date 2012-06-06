@@ -41,9 +41,23 @@ function constructor (id) {
 		WOBS.changedDatasource = sources.contact;
 	}
     
-
+    //When a contact is a single person, i.e. no company, we show the container
+    // with input fields for name and mobile
+    function toggleNoCompanyContainer(){
+    	var isCompany = $$(getHtmlId('contactIsCompanyCheckbox')).getValue();
+		var container = getHtmlId('noCompanyContainer');
+		if(isCompany){
+			$$(container).hide();
+		}else{
+			$$(container).show();
+		}
+    }
 
 	// eventHandlers// @lock
+	
+	sources.contact.addListener("onCurrentElementChange", function(event){
+		toggleNoCompanyContainer();
+	}); 
 
 	contactCountryCombobox.click = function contactCountryCombobox_click (event)// @startlock
 	{// @endlock
@@ -52,13 +66,7 @@ function constructor (id) {
 
 	contactIsCompanyCheckbox.click = function contactIsCompanyCheckbox_click (event)// @startlock
 	{// @endlock
-		var isCompany = $$(getHtmlId('contactIsCompanyCheckbox')).getValue();
-		var container = getHtmlId('noCompanyContainer');
-		if(isCompany){
-			$$(container).hide();
-		}else{
-			$$(container).show();
-		}
+		toggleNoCompanyContainer();
 		
 	};// @lock
 
