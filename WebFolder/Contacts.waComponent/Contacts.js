@@ -16,6 +16,7 @@ function constructor (id) {
 	this.load = function (data) {// @lock
     
 	// @region namespaceDeclaration// @startlock
+	var contactCountryCombobox = {};	// @combobox
 	var contactIsCompanyCheckbox = {};	// @checkbox
 	var contactSalutationCombobox = {};	// @combobox
 	var searchContactTextfield = {};	// @textField
@@ -43,6 +44,11 @@ function constructor (id) {
 
 
 	// eventHandlers// @lock
+
+	contactCountryCombobox.click = function contactCountryCombobox_click (event)// @startlock
+	{// @endlock
+		enableSaveContactButton();
+	};// @lock
 
 	contactIsCompanyCheckbox.click = function contactIsCompanyCheckbox_click (event)// @startlock
 	{// @endlock
@@ -182,6 +188,7 @@ function constructor (id) {
 	};// @lock
 
 	// @region eventManager// @startlock
+	WAF.addListener(this.id + "_contactCountryCombobox", "click", contactCountryCombobox.click, "WAF");
 	WAF.addListener(this.id + "_contactIsCompanyCheckbox", "click", contactIsCompanyCheckbox.click, "WAF");
 	WAF.addListener(this.id + "_contactSalutationCombobox", "click", contactSalutationCombobox.click, "WAF");
 	WAF.addListener(this.id + "_searchContactTextfield", "keyup", searchContactTextfield.keyup, "WAF");
