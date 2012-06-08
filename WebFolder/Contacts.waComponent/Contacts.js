@@ -16,6 +16,7 @@ function constructor (id) {
 	this.load = function (data) {// @lock
     
 	// @region namespaceDeclaration// @startlock
+	var createContactButton = {};	// @button
 	var contactCountryCombobox = {};	// @combobox
 	var contactIsCompanyCheckbox = {};	// @checkbox
 	var contactSalutationCombobox = {};	// @combobox
@@ -54,6 +55,12 @@ function constructor (id) {
     }
 
 	// eventHandlers// @lock
+
+	createContactButton.click = function createContactButton_click (event)// @startlock
+	{// @endlock
+		sources.contact.addNewElement();
+		sources.contact.serverRefresh();
+	};// @lock
 	
 	sources.contact.addListener("onCurrentElementChange", function(event){
 		toggleNoCompanyContainer();
@@ -196,6 +203,7 @@ function constructor (id) {
 	};// @lock
 
 	// @region eventManager// @startlock
+	WAF.addListener(this.id + "_createContactButton", "click", createContactButton.click, "WAF");
 	WAF.addListener(this.id + "_contactCountryCombobox", "click", contactCountryCombobox.click, "WAF");
 	WAF.addListener(this.id + "_contactIsCompanyCheckbox", "click", contactIsCompanyCheckbox.click, "WAF");
 	WAF.addListener(this.id + "_contactSalutationCombobox", "click", contactSalutationCombobox.click, "WAF");
