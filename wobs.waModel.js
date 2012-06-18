@@ -3,6 +3,15 @@ guidedModel =// @startlock
 {
 	Contact :
 	{
+		events :
+		{
+			onValidate:function()
+			{// @endlock
+				if(this.isCompany == false){
+					this.name = this.lastName;
+				}
+			}// @startlock
+		},
 		isCompany :
 		{
 			events :
