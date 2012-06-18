@@ -146,7 +146,7 @@ function constructor (id) {
 				WOBS.changedDatasource = null;
 			},
 			onError: function(error) {
-				alert(error['error'][0]);
+				alert(error['error'][0].message);
 			}	
 		});
 		
@@ -179,7 +179,7 @@ function constructor (id) {
 					WOBS.changedDatasource = null;
 				},
 				onError: function(error) {
-					alert(error['error'][0]);
+					$$(getHtmlId('contactMessage')).setValue(error['error'][0].message);
 				}	
 			});
 		}
@@ -197,7 +197,7 @@ function constructor (id) {
 			$$(getHtmlId('contactMessage')).setValue('Contact Saved');
 		},
 		onError: function(error) {
-				alert(error['error'][0]);
+				$$(getHtmlId('contactMessage')).setValue(error['error'][0].message);
 			}	
 		});
 	};// @lock
