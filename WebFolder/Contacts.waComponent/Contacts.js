@@ -40,6 +40,7 @@ function constructor (id) {
   	  		change: function(event) { enableSaveContactButton(); }
 	});
 	
+	toggleNoCompanyContainer();
 	function enableSaveContactButton(){
 		$$(getHtmlId("saveContactButton")).enable();
 		WOBS.changedDatasource = sources.contact;
@@ -50,10 +51,13 @@ function constructor (id) {
     function toggleNoCompanyContainer(){
     	var isCompany = $$(getHtmlId('contactIsCompanyCheckbox')).getValue();
 		var container = getHtmlId('noCompanyContainer');
+		var company = getHtmlId('companyName');
 		if(isCompany){
 			$$(container).hide();
+			$$(company).enable();
 		}else{
 			$$(container).show();
+			$$(company).disable();
 		}
     }
 
