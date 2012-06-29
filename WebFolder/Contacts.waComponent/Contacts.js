@@ -19,6 +19,7 @@ function constructor (id) {
 	this.load = function (data) {// @lock
     
 	// @region namespaceDeclaration// @startlock
+	var contactLastNameTextField = {};	// @textField
 	var createContactButton = {};	// @button
 	var contactCountryCombobox = {};	// @combobox
 	var contactIsCompanyCheckbox = {};	// @checkbox
@@ -62,6 +63,15 @@ function constructor (id) {
     }
 
 	// eventHandlers// @lock
+
+    //the last name is inserted in the contact name 
+	contactLastNameTextField.keyup = function contactLastNameTextField_keyup (event)// @startlock
+	{// @endlock
+		var company = getHtmlId('companyName');
+		var lastName = getHtmlId('contactLastNameTextField');
+		$$(company).setValue($$(lastName).getValue());
+		
+	};// @lock
 
 	createContactButton.click = function createContactButton_click (event)// @startlock
 	{// @endlock
@@ -210,6 +220,7 @@ function constructor (id) {
 	};// @lock
 
 	// @region eventManager// @startlock
+	WAF.addListener(this.id + "_contactLastNameTextField", "keyup", contactLastNameTextField.keyup, "WAF");
 	WAF.addListener(this.id + "_createContactButton", "click", createContactButton.click, "WAF");
 	WAF.addListener(this.id + "_contactCountryCombobox", "click", contactCountryCombobox.click, "WAF");
 	WAF.addListener(this.id + "_contactIsCompanyCheckbox", "click", contactIsCompanyCheckbox.click, "WAF");
