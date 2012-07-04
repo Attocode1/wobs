@@ -29,7 +29,7 @@ function constructor (id) {
 	var button7 = {};	// @button
 	var button6 = {};	// @button
 	var nextContactbutton = {};	// @button
-	var deleteContactButton = {};	// @button
+	var deleteContactButton2 = {};	// @button
 	var saveContactButton = {};	// @button
 	// @endregion// @endlock
 	$$(getHtmlId("saveContactButton")).disable();
@@ -183,7 +183,7 @@ function constructor (id) {
 		}
 	};// @lock
 
-	deleteContactButton.click = function deleteContactButton_click (event)// @startlock
+	deleteContactButton2.click = function deleteContactButton2_click (event)// @startlock
 	{// @endlock
 		$$(getHtmlId('contactMessage')).setValue('');
 		var name = sources.contact.name;
@@ -230,7 +230,7 @@ function constructor (id) {
 	WAF.addListener(this.id + "_button7", "click", button7.click, "WAF");
 	WAF.addListener(this.id + "_button6", "click", button6.click, "WAF");
 	WAF.addListener(this.id + "_nextContactbutton", "click", nextContactbutton.click, "WAF");
-	WAF.addListener(this.id + "_deleteContactButton", "click", deleteContactButton.click, "WAF");
+	WAF.addListener(this.id + "_deleteContactButton2", "click", deleteContactButton2.click, "WAF");
 	WAF.addListener(this.id + "_saveContactButton", "click", saveContactButton.click, "WAF");
 	// @endregion// @endlock
 
