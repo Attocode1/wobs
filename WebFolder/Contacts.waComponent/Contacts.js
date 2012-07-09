@@ -1,12 +1,10 @@
 
 (function Component (id) {// @lock
 //TODO
-//disable name when no company
-//show message function
-//show error function
+
 //make WOBS.changedDatasource an array
 
-//change the length of the combobox when v2 is finished
+
 // Add the code that needs to be shared between components here
 
 function constructor (id) {
